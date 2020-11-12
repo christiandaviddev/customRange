@@ -1,6 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["components-fixed-values-range-fixed-values-range-module"],{
 
-/***/ "./src/app/components/fixed-values-range/fixed-values-range-routing.module.ts":
+/***/ "BjmD":
 /*!************************************************************************************!*\
   !*** ./src/app/components/fixed-values-range/fixed-values-range-routing.module.ts ***!
   \************************************************************************************/
@@ -10,9 +10,9 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FixedValuesRangeRoutingModule", function() { return FixedValuesRangeRoutingModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _fixed_values_range_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed-values-range.component */ "./src/app/components/fixed-values-range/fixed-values-range.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _fixed_values_range_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed-values-range.component */ "Huit");
 
 
 
@@ -22,8 +22,7 @@ const routes = [{ path: '', component: _fixed_values_range_component__WEBPACK_IM
 class FixedValuesRangeRoutingModule {
 }
 FixedValuesRangeRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FixedValuesRangeRoutingModule });
-FixedValuesRangeRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FixedValuesRangeRoutingModule_Factory(t) { return new (t || FixedValuesRangeRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-        _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
+FixedValuesRangeRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FixedValuesRangeRoutingModule_Factory(t) { return new (t || FixedValuesRangeRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](FixedValuesRangeRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FixedValuesRangeRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
@@ -36,7 +35,7 @@ FixedValuesRangeRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__
 
 /***/ }),
 
-/***/ "./src/app/components/fixed-values-range/fixed-values-range.component.ts":
+/***/ "Huit":
 /*!*******************************************************************************!*\
   !*** ./src/app/components/fixed-values-range/fixed-values-range.component.ts ***!
   \*******************************************************************************/
@@ -46,8 +45,8 @@ FixedValuesRangeRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FixedValuesRangeComponent", function() { return FixedValuesRangeComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _shared_components_range_range_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/components/range/range.component */ "./src/app/shared/components/range/range.component.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _shared_components_range_range_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/components/range/range.component */ "j8Zf");
 
 
 
@@ -65,7 +64,7 @@ FixedValuesRangeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("min", 1)("max", 1000)("type", "fided");
-    } }, directives: [_shared_components_range_range_component__WEBPACK_IMPORTED_MODULE_1__["RangeComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZml4ZWQtdmFsdWVzLXJhbmdlL2ZpeGVkLXZhbHVlcy1yYW5nZS5jb21wb25lbnQuc2NzcyJ9 */"] });
+    } }, directives: [_shared_components_range_range_component__WEBPACK_IMPORTED_MODULE_1__["RangeComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJmaXhlZC12YWx1ZXMtcmFuZ2UuY29tcG9uZW50LnNjc3MifQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FixedValuesRangeComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -78,7 +77,7 @@ FixedValuesRangeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
 
 /***/ }),
 
-/***/ "./src/app/components/fixed-values-range/fixed-values-range.module.ts":
+/***/ "ubMR":
 /*!****************************************************************************!*\
   !*** ./src/app/components/fixed-values-range/fixed-values-range.module.ts ***!
   \****************************************************************************/
@@ -88,11 +87,11 @@ FixedValuesRangeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FixedValuesRangeModule", function() { return FixedValuesRangeModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _fixed_values_range_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed-values-range-routing.module */ "./src/app/components/fixed-values-range/fixed-values-range-routing.module.ts");
-/* harmony import */ var _fixed_values_range_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fixed-values-range.component */ "./src/app/components/fixed-values-range/fixed-values-range.component.ts");
-/* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _fixed_values_range_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed-values-range-routing.module */ "BjmD");
+/* harmony import */ var _fixed_values_range_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fixed-values-range.component */ "Huit");
+/* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/shared.module */ "PCNd");
 
 
 
