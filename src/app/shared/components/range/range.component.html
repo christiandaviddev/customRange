@@ -1,22 +1,24 @@
-<div>{{min}}</div>
+<ng-container *ngIf="!type">
+  <p>{{min}}</p>
+</ng-container>
 <div id="container-range">
-  <div id="range">
-    <div id="first-range-point">
-    </div>
-    <div id="last-range-point">
-    </div>
-    <!-- <div id="first-range-point"
-      (mousedown)="mouseDownEvent(true, 'first-range-point')"
-      (mouseup)="mouseUpEvent($event, 'first-range-point')">
-    </div> -->
-    <!-- <div id="last-range-point" [style.left]="lastRangeValue + '%'"
-      (mousedown)="mouseDownEvent($event, 'last-range-point')"
-      (mouseup)="mouseUpEvent($event, 'last-range-point')">
-    </div> -->
-  </div>
+  <p id="range">
+    <span id="first-range-point" class="first-range"></span>
+    <!-- <span id="first-range-title" class="first-range range-point-title">{{firtsPointValue}}</span> -->
+    <span id="last-range-point" class="last-range"></span>
+    <!-- <span id="last-range-title" class="last-range range-point-title">{{lastPointValue}}</span> -->
+  </p>
 </div>
-<div>{{max}}</div>
+<ng-container *ngIf="!type">
+  <p>{{max}}</p>
+</ng-container>
+
+<br>
 <p>{{filterValue | currency:'EUR'}}</p>
 
 <p>{{clickRange$ |async}}</p>
-<p>{{firstRangeValue}}</p>
+<br>
+{{firtsPointValue}}
+<br>
+{{lastPointValue}}
+

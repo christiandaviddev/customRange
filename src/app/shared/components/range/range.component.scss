@@ -1,11 +1,13 @@
+p {
+  display: inline-block;
+}
+
 #container-range {
   position: relative;
   display: flex;
   width: 200px;
   height: 10px;
   align-items: center;
-  justify-content: center;
-
 }
 
 #range {
@@ -40,6 +42,18 @@
   transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
   appearance: none;
 }
+
+.range-point-title {
+  position: absolute;
+  top: 90%;
+  // width: 10px;
+  // height: 10px;
+  // cursor: pointer;
+  // transform: translateY(-50%);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  appearance: none;
+}
+
 
 // #container-range {
 //   position: relative;
