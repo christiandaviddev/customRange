@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FixedValuesRangeComponent } from './fixed-values-range.component';
 
@@ -6,7 +6,7 @@ describe('FixedValuesRangeComponent', () => {
   let component: FixedValuesRangeComponent;
   let fixture: ComponentFixture<FixedValuesRangeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FixedValuesRangeComponent ]
     })
