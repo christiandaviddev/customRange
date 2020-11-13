@@ -18,20 +18,20 @@ export class RangeComponent implements OnInit, OnDestroy {
   rangeSubscriptions: Subscription[] = [];
   clickRange$: any;
 
-  firstRangePoint: HTMLSpanElement;
-  lastRangePoint: HTMLSpanElement;
+  leftBullet: HTMLSpanElement;
+  rightBullet: HTMLSpanElement;
 
   // firstRangeValue: number;
   // lastRangeValue: number;
 
   isMouseDownEvent: boolean;
-  filterValue:number = 0;
+  filterValue = 0;
 
   constructor() { }
 
   ngOnInit(): void {
     const body = document.body as HTMLElement;
-    this.rangeSubscriptions.push(this.setRangePointByClick());
+    this.setRangePointByClick();
     // this.setValueRangePoint(firtsRange, 0);
     // this.setValueRangePoint(lastRange, range.offsetWidth);
   }
@@ -40,50 +40,50 @@ export class RangeComponent implements OnInit, OnDestroy {
    this.rangeSubscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
-  setRangePointByClick(): Subscription {
+  setRangePointByClick(): void {
     console.log('setRangePointByClick');
     const range = document.getElementById('range') as HTMLDivElement;
-    this.firstRangePoint = document.getElementById('first-range-point') as HTMLDivElement;
-    this.lastRangePoint = document.getElementById('last-range-point') as HTMLDivElement;
+    this.leftBullet = document.getElementById('first-range-point') as HTMLDivElement;
+    this.rightBullet = document.getElementById('last-range-point') as HTMLDivElement;
 
-    this.firtsPointValue = 0;
-    this.lastPointValue = range.offsetWidth;
-    return fromEvent(range, 'mousedown')
+    this.leftBulletPosition = 0;
+    this.rightBulletPosition = range.offsetWidth;
+    const sub: Subscription = fromEvent(range, 'mousedown')
       .pipe(
         debounceTime(180),
-        distinctUntilChanged(),
         map((event: MouseEvent) => {
           let valueX = event.pageX;
-          console.log('valueX a', event.pageX);
           valueX = valueX >= range.offsetWidth ? range.offsetWidth : valueX;
           valueX = valueX < 0 ? 0 : valueX;
-          console.log('valueX', valueX);
           return valueX;
         })
       ).subscribe(data => {
-          console.log('data', data);
           const value = this.max * ((data / 2) / 100);
           this.filterValue = value >= this.max ? this.max : value;
-          // rangePoint.style.left = data - Number(rangePoint.offsetWidth) + 'px';
-
-          this.checkRangePoints(data, this.firtsPointValue, this.lastPointValue);
+          this.setPositionPoint(data);
     });
+
+    this.rangeSubscriptions.push(sub);
   }
 
-  checkRangePoints(newPosition, firtsPosition, lastPosition) {
-    console.log('newPosition, firtsPosition, lastPosition', newPosition, firtsPosition, lastPosition)
-    let restValueLeft = newPosition - firtsPosition;
-    restValueLeft = restValueLeft < 0 ? restValueLeft * -1 : restValueLeft;
+  setPositionPoint(newBulletPosition: number) {
+    newBulletPosition = newBulletPosition - this.leftBullet.offsetWidth;
 
-    let restValueRight = newPosition - lastPosition;
-    restValueRight = restValueRight < 0 ? restValueRight * -1 : restValueRight;
+    console.log('newPosition, leftPosition, rightPosition', newBulletPosition, this.leftBulletPosition, this.rightBulletPosition);
+    const differenceFromLeft = this.getDifference(newBulletPosition, this.leftBulletPosition);
+    const differenceFromRight = this.getDifference(newBulletPosition, this.rightBulletPosition);
 
-    console.log('restValueLeft > restValueRight', restValueLeft , restValueRight);
-    if (restValueLeft <= restValueRight) {
-      this.firtsPointValue = newPosition;
+    console.log('differenceFromLeft <= restValueRight', differenceFromLeft , differenceFromRight);
+    if (differenceFromLeft <= differenceFromRight) {
+      this.leftBulletPosition = newBulletPosition;
     } else{
-      this.lastPointValue = newPosition;
+      this.rightBulletPosition = newBulletPosition;
     }
+  }
+
+  private getDifference(positionA: number, positionB: number) {
+    positionA = positionA - positionB;
+    return positionA < 0 ? positionA * -1 : positionA;
   }
 
   // setValueRangePoint(rangePoint: HTMLDivElement, value: number) {
@@ -115,24 +115,24 @@ export class RangeComponent implements OnInit, OnDestroy {
   }
 
 
-  public get firtsPointValue(): number {
-    const position = this.firstRangePoint.style.left.replace('px', '');
-    console.log('firstRangePoint', position);
+  public get leftBulletPosition(): number {
+    const position = this.leftBullet.style.left.replace('px', '');
+    // console.log('firstRangePoint', position);
     return Number(position);
   }
 
-  public set firtsPointValue(v: number) {
-    this.firstRangePoint.style.left = String(v) + 'px';
+  public set leftBulletPosition(v: number) {
+    this.leftBullet.style.left = String(v) + 'px';
   }
 
-  public get lastPointValue(): number {
-    const position = this.lastRangePoint.style.left.replace('px', '');
-    console.log('firstRangePoint', position);
+  public get rightBulletPosition(): number {
+    const position = this.rightBullet.style.left.replace('px', '');
+    // console.log('firstRangePoint', position);
     return Number(position);
   }
 
-  public set lastPointValue(v: number) {
-    this.lastRangePoint.style.left = String(v) + 'px';
+  public set rightBulletPosition(v: number) {
+    this.rightBullet.style.left = String(v) + 'px';
   }
 
 

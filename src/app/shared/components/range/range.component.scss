@@ -17,6 +17,10 @@ p {
   cursor: pointer;
 }
 
+#first-range-point:hover, #last-range-point:hover {
+  height: 13px;
+  width: 13px;
+}
 #first-range-point {
   position: absolute;
  top: 50%;
@@ -26,7 +30,6 @@ p {
   background-color: red;
   cursor: pointer;
   transform: translateY(-50%);
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
   appearance: none;
 }
 
@@ -39,7 +42,6 @@ p {
   background-color: green;
   cursor: pointer;
   transform: translateY(-50%);
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
   appearance: none;
 }
 
@@ -50,7 +52,6 @@ p {
   // height: 10px;
   // cursor: pointer;
   // transform: translateY(-50%);
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
   appearance: none;
 }
 
