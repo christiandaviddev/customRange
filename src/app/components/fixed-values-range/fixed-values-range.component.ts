@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { FilterProductsService } from 'src/app/services/filter-products/filter-products.service';
 
 @Component({
   selector: 'ngc-fixed-values-range',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FixedValuesRangeComponent implements OnInit {
 
-  constructor() { }
+  values: number[] ;
+
+  constructor(
+    private filterProductsService: FilterProductsService
+  ) { }
 
   ngOnInit(): void {
+    this.getPriceValues();
+  }
+
+  getPriceValues(): void {
+    this.filterProductsService.getPricesValues().pipe(
+        tap(prices => this.values = prices?.values ?? []),
+        catchError((err) => of(err))
+      ).subscribe();
   }
 
 }

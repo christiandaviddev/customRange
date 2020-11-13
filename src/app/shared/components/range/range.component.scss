@@ -20,10 +20,11 @@ p {
 #first-range-point:hover, #last-range-point:hover {
   height: 13px;
   width: 13px;
+  cursor: move;
 }
 #first-range-point {
   position: absolute;
- top: 50%;
+  top: 50%;
   width: 10px;
   height: 10px;
   border-radius: 50%;

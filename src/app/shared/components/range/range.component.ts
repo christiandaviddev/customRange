@@ -9,11 +9,10 @@ import { debounceTime, distinctUntilChanged, map, takeWhile, tap } from 'rxjs/op
 })
 export class RangeComponent implements OnInit, OnDestroy {
 
-
-
   @Input() min = 0;
   @Input() max = 0;
   @Input() type = '';
+  @Input() values = [];
 
   rangeSubscriptions: Subscription[] = [];
   clickRange$: any;
@@ -32,8 +31,6 @@ export class RangeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const body = document.body as HTMLElement;
     this.setRangePointByClick();
-    // this.setValueRangePoint(firtsRange, 0);
-    // this.setValueRangePoint(lastRange, range.offsetWidth);
   }
 
   ngOnDestroy(): void {
@@ -57,23 +54,23 @@ export class RangeComponent implements OnInit, OnDestroy {
           valueX = valueX < 0 ? 0 : valueX;
           return valueX;
         })
-      ).subscribe(data => {
-          const value = this.max * ((data / 2) / 100);
+      ).subscribe(mousePosition => {
+          const value = this.max * ((mousePosition / 2) / 100);
           this.filterValue = value >= this.max ? this.max : value;
-          this.setPositionPoint(data);
+          this.setPositionPoint(mousePosition);
     });
 
     this.rangeSubscriptions.push(sub);
   }
 
-  setPositionPoint(newBulletPosition: number) {
-    newBulletPosition = newBulletPosition - this.leftBullet.offsetWidth;
+  setPositionPoint(mousePosition: number) {
+    let newBulletPosition = mousePosition - this.leftBullet.offsetWidth;
 
-    console.log('newPosition, leftPosition, rightPosition', newBulletPosition, this.leftBulletPosition, this.rightBulletPosition);
     const differenceFromLeft = this.getDifference(newBulletPosition, this.leftBulletPosition);
+
+    newBulletPosition = mousePosition - this.rightBullet.offsetWidth;
     const differenceFromRight = this.getDifference(newBulletPosition, this.rightBulletPosition);
 
-    console.log('differenceFromLeft <= restValueRight', differenceFromLeft , differenceFromRight);
     if (differenceFromLeft <= differenceFromRight) {
       this.leftBulletPosition = newBulletPosition;
     } else{
