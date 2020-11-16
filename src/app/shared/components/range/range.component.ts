@@ -25,16 +25,15 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   @Output() rangeChange: EventEmitter<CustomParam> = new EventEmitter<CustomParam>();
 
-
   private rangeSubscriptions: Subscription[] = [];
+  private rangeLine: HTMLParagraphElement;
   private leftBullet: HTMLSpanElement;
   private rightBullet: HTMLSpanElement;
 
-  // firstRangeValue: number;
-  // lastRangeValue: number;
+  private leftPrice: number;
+  private rightPrice: number;
 
-  isMouseDownEvent: boolean;
-  filterValue = 0;
+  // isMouseDownEvent: boolean;
 
   isDisabled: boolean = false;
   onChange = (_: any) => {};
@@ -43,7 +42,6 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
   constructor() { }
 
   writeValue(obj: CustomParam): void {
-    console.log('writeValue', obj);
   }
 
   registerOnChange(fn: any): void {
@@ -54,48 +52,46 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
     this.onTouch = fn;
   }
 
-  setDisabledState?(state: boolean): void {
+  setDisabledState(state: boolean): void {
     this.isDisabled = state;
   }
 
   ngOnInit(): void {
-    const body = document.body as HTMLElement;
-    this.setRangePointByClick();
+    this.rangeLine = document.getElementById('range-line') as HTMLDivElement;
+    this.leftBullet = document.getElementById('left-range-bullet') as HTMLDivElement;
+    this.rightBullet = document.getElementById('right-range-bullet') as HTMLDivElement;
+    this.leftBulletPosition = 0;
+    this.rightBulletPosition = this.rangeLine.offsetWidth;
   }
 
   ngOnDestroy(): void {
    this.rangeSubscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
-  setRangePointByClick(): void {
-    console.log('setRangePointByClick');
-    const range = document.getElementById('range') as HTMLDivElement;
-    this.leftBullet = document.getElementById('first-range-point') as HTMLDivElement;
-    this.rightBullet = document.getElementById('last-range-point') as HTMLDivElement;
-
-    this.leftBulletPosition = 0;
-    this.rightBulletPosition = range.offsetWidth;
-    const sub: Subscription = fromEvent(range, 'mousedown')
-      .pipe(
-        debounceTime(180),
-        map((event: MouseEvent) => {
-          let valueX = event.pageX;
-          valueX = valueX >= range.offsetWidth ? range.offsetWidth : valueX;
-          valueX = valueX < 0 ? 0 : valueX;
-          return valueX;
-        })
-      ).subscribe(mousePosition => {
-          const value = this.maxPrice * ((mousePosition / 2) / 100);
-          this.filterValue = value >= this.maxPrice ? this.maxPrice : value;
-          this.setPositionPoint(mousePosition);
-          this.onTouch();
-          this.onChange({left: this.leftBulletPosition, right: this.rightBulletPosition});
-    });
-
-    this.rangeSubscriptions.push(sub);
+  setRangePointByClick(positionX: number): void {
+    const mousePosition: number = this.getMousePosition(positionX);
+    const valueForFilter: number = this.getValueForFilter(mousePosition, this.maxPrice);
+    this.processNewPosition(mousePosition, valueForFilter);
+    const resultRange: CustomParam = {left: this.leftPrice, right: this.rightPrice};
+    this.onTouch();
+    this.onChange(resultRange);
+    // TODO: If there is not any ngModule input provided, a rangeChange output has to emit range values.
+    this.rangeChange.emit(resultRange);
   }
 
-  setPositionPoint(mousePosition: number) {
+  private getMousePosition(mousePosition: number): number {
+    mousePosition = mousePosition >= this.rangeLine.offsetWidth ? this.rangeLine.offsetWidth : mousePosition;
+    mousePosition = mousePosition < 0 ? 0 : mousePosition;
+    return mousePosition;
+  }
+
+  private getValueForFilter(mousePosition: number, maxPrice: number): number {
+    let value = maxPrice * ((mousePosition / 2) / 100);
+    value = value >= maxPrice ? maxPrice : value;
+    return value;
+  }
+
+  private processNewPosition(mousePosition: number, bulletPrice: number): void {
     let newBulletPosition = mousePosition - this.leftBullet.offsetWidth;
 
     const differenceFromLeft = this.getDifference(newBulletPosition, this.leftBulletPosition);
@@ -104,23 +100,22 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
     const differenceFromRight = this.getDifference(newBulletPosition, this.rightBulletPosition);
 
     if (differenceFromLeft <= differenceFromRight) {
-      this.leftBulletPosition = newBulletPosition;
+      // TODO: limit position
+      this.leftBulletPosition = newBulletPosition ;
+      this.leftPrice = bulletPrice;
     } else{
       this.rightBulletPosition = newBulletPosition;
+      this.rightPrice = bulletPrice;
     }
   }
 
-  private getDifference(positionA: number, positionB: number) {
+  private getDifference(positionA: number, positionB: number): number {
     positionA = positionA - positionB;
     return positionA < 0 ? positionA * -1 : positionA;
   }
 
-  // setValueRangePoint(rangePoint: HTMLDivElement, value: number) {
-  //   rangePoint.style.left = value - Number(rangePoint.offsetWidth) + 'px';
-  // }
-
-  mouseDownEvent(evnt: any, id: string) {
-    console.log('mouseDownEvent');
+  mouseDownEvent(evnt: MouseEvent) {
+    // TODO:
     // this.isMouseDownEvent = true;
     // const body = document.body as HTMLElement;
     // const range = document.getElementById('range') as HTMLDivElement;
@@ -128,25 +123,19 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
     // this.firstRangeSubscription = fromEvent(body, 'mousemove').pipe(
     //   map((event: MouseEvent) => event.pageX),
     //   ).subscribe(data => {
-    //     console.log('evnt', evnt);
     //     if ((this.max * (((data - (range.offsetWidth - (range.offsetWidth * 1))) / 2) / 100) <= this.max) &&
     //     (this.max * (((data - (range.offsetWidth )) / 2) / 100) >= (this.min - (range.offsetWidth * 1))) && this.isMouseDownEvent) {
     //       firtsRange.style.left = (data - Number(range.offsetWidth)) + 'px';
-    //       console.log('VALUE ', data, this.max * ((data / 2) / 100), range.offsetWidth, firtsRange.style.left );
     //     }
     // });
   }
 
-  mouseUpEvent(evnt: any, id: string) {
-    console.log('fin');
-    this.isMouseDownEvent = false;
-    // this.firstRangeSubscription.unsubscribe();
-  }
-
+  // mouseUpEvent(evnt: any, id: string) {
+  //   this.isMouseDownEvent = false;
+  // }
 
   public get leftBulletPosition(): number {
     const position = this.leftBullet.style.left.replace('px', '');
-    // console.log('firstRangePoint', position);
     return Number(position);
   }
 
@@ -156,35 +145,11 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
   public get rightBulletPosition(): number {
     const position = this.rightBullet.style.left.replace('px', '');
-    // console.log('firstRangePoint', position);
     return Number(position);
   }
 
   public set rightBulletPosition(v: number) {
     this.rightBullet.style.left = String(v) + 'px';
   }
-
-
-  // mouseDownEvent(evnt: any, id: string) {
-  //   const body = document.body as HTMLElement;
-  //   const range = document.getElementById(id) as HTMLDivElement;
-  //   const firtsRange = document.getElementById(id) as HTMLDivElement;
-  //   this.firstRangeSubscription = fromEvent(body, 'mousemove').pipe(
-  //     map((event: MouseEvent) => event.pageX),
-  //   ).subscribe(data => {
-  //     if ((this.max * (((data - (range.offsetWidth - (range.offsetWidth * 1))) / 2) / 100) <= this.max) &&
-  //     (this.max * (((data - (range.offsetWidth )) / 2) / 100) >= (this.min - (range.offsetWidth * 1)))) {
-
-  //       firtsRange.style.left = (data - Number(range.offsetWidth)) + 'px';
-  //       console.log('VALUE ', data, this.max * ((data / 2) / 100), range.offsetWidth, firtsRange.style.left );
-  //     }
-  //   });
-  // }
-
-  // mouseUpEvent(evnt: any, id: string) {
-  //   console.log('fin');
-
-  //   this.firstRangeSubscription.unsubscribe();
-  // }
 
 }

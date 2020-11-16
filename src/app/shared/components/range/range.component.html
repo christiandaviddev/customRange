@@ -1,24 +1,10 @@
-<ng-container *ngIf="!type">
-  <p>{{minPrice}}</p>
-</ng-container>
-<div id="container-range">
-  <p id="range">
-    <span id="first-range-point" class="first-range"></span>
-    <!-- <span id="first-range-title" class="first-range range-point-title">{{firtsPointValue}}</span> -->
-    <span id="last-range-point" class="last-range"></span>
-    <!-- <span id="last-range-title" class="last-range range-point-title">{{lastPointValue}}</span> -->
-  </p>
+<div id="range-container">
+    <input #min  [disabled]="type === 'fixed'" [(ngModel)]="minPrice" class="input-filed">
+    <div id="range-box">
+      <p id="range-line" class="range-line" (click)="setRangePointByClick($event?.pageX)">
+        <span #leftBullet id="left-range-bullet" class="range-bullet" (mousedown)="mouseDownEvent($event)"></span>
+        <span #rightBullet id="right-range-bullet" class="range-bullet" (mousedown)="mouseDownEvent($event)"></span>
+      </p>
+  </div>
+  <input #max  [disabled]="type === 'fixed'" [(ngModel)]="maxPrice" class="input-filed">
 </div>
-<ng-container *ngIf="!type">
-  <p>{{maxPrice}}</p>
-</ng-container>
-
-<br>
-<p>{{filterValue | currency:'EUR'}}</p>
-
-<br>
-{{leftBulletPosition}}
-<br>
-{{rightBulletPosition}}
-<br>
-{{values}}

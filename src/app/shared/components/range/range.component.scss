@@ -1,8 +1,4 @@
-p {
-  display: inline-block;
-}
-
-#container-range {
+#range-box {
   position: relative;
   display: flex;
   width: 200px;
@@ -10,51 +6,44 @@ p {
   align-items: center;
 }
 
-#range {
+.input-filed {
+  margin: 3% 0%;
+  width: 50px;
+}
+
+#range-line {
   width: 100%;
   height: 3px;
   background-color: blue;
   cursor: pointer;
 }
 
-#first-range-point:hover, #last-range-point:hover {
+.range-bullet:hover {
   height: 13px;
   width: 13px;
   cursor: move;
 }
-#first-range-point {
+
+.range-bullet {
   position: absolute;
   top: 50%;
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  appearance: none;
+  background-color: blue;
+}
+
+#left-range-bullet:hover {
   background-color: red;
-  cursor: pointer;
-  transform: translateY(-50%);
-  appearance: none;
 }
 
-#last-range-point {
-  position: absolute;
- top: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+#right-range-bullet:hover {
   background-color: green;
-  cursor: pointer;
-  transform: translateY(-50%);
-  appearance: none;
 }
 
-.range-point-title {
-  position: absolute;
-  top: 90%;
-  // width: 10px;
-  // height: 10px;
-  // cursor: pointer;
-  // transform: translateY(-50%);
-  appearance: none;
-}
 
 
 // #container-range {
@@ -73,7 +62,7 @@ p {
 //   background-color: blue;
 // }
 
-// #first-range-point {
+// #first-range-bullet {
 //   position: absolute;
 //  top: 50%;
 //   width: 10px;
@@ -86,7 +75,7 @@ p {
 //   appearance: none;
 // }
 
-// #last-range-point {
+// #last-range-bullet {
 //   position: absolute;
 //  top: 50%;
 //   width: 20px;
