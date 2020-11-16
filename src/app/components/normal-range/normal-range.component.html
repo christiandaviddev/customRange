@@ -1,2 +1,6 @@
-<h1>normal-range works</h1>
-<ngc-range [min]="this.minPrice"  [max]="this.maxPrice"></ngc-range>
+<h1>normal-range</h1>
+<form>
+  <ngc-range [min]="this.minPrice"  [max]="this.maxPrice" [(ngModel)]="rangeValues" name="range"></ngc-range>
+</form>
+
+<p>rangeValues: {{rangeValues |json}}</p>

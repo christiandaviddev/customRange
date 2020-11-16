@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NormalRangeRoutingModule } from './normal-range-routing.module';
 import { NormalRangeComponent } from './normal-range.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     NormalRangeRoutingModule,
+    FormsModule,
     SharedModule
   ]
 })

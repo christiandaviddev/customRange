@@ -1,5 +1,5 @@
 <ng-container *ngIf="!type">
-  <p>{{min}}</p>
+  <p>{{minPrice}}</p>
 </ng-container>
 <div id="container-range">
   <p id="range">
@@ -10,13 +10,12 @@
   </p>
 </div>
 <ng-container *ngIf="!type">
-  <p>{{max}}</p>
+  <p>{{maxPrice}}</p>
 </ng-container>
 
 <br>
 <p>{{filterValue | currency:'EUR'}}</p>
 
-<p>{{clickRange$ |async}}</p>
 <br>
 {{leftBulletPosition}}
 <br>

@@ -1,2 +1,7 @@
 <h1>fixed-values-range</h1>
-<ngc-range [values]="values" [type]="'fixed'"></ngc-range>
+<form>
+  <ngc-range [values]="values" [type]="'fixed'" [(ngModel)]="rangeValues" name="range"></ngc-range>
+</form>
+
+<p>rangeValues: {{rangeValues |json}}</p>
+

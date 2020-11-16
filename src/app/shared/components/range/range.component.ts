@@ -1,24 +1,34 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, takeWhile, tap } from 'rxjs/operators';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CustomParam } from 'src/app/services/filter-products/interfaces/custom-param.interface';
 
 @Component({
   selector: 'ngc-range',
   templateUrl: './range.component.html',
-  styleUrls: ['./range.component.scss']
+  styleUrls: ['./range.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RangeComponent),
+      multi: true
+    }
+  ]
 })
-export class RangeComponent implements OnInit, OnDestroy {
+export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-  @Input() min = 0;
-  @Input() max = 0;
+  @Input('min') minPrice: number = 0;
+  @Input('max') maxPrice = 0;
+  @Input() values: number[] = [];
   @Input() type = '';
-  @Input() values = [];
 
-  rangeSubscriptions: Subscription[] = [];
-  clickRange$: any;
+  @Output() rangeChange: EventEmitter<CustomParam> = new EventEmitter<CustomParam>();
 
-  leftBullet: HTMLSpanElement;
-  rightBullet: HTMLSpanElement;
+
+  private rangeSubscriptions: Subscription[] = [];
+  private leftBullet: HTMLSpanElement;
+  private rightBullet: HTMLSpanElement;
 
   // firstRangeValue: number;
   // lastRangeValue: number;
@@ -26,7 +36,27 @@ export class RangeComponent implements OnInit, OnDestroy {
   isMouseDownEvent: boolean;
   filterValue = 0;
 
+  isDisabled: boolean = false;
+  onChange = (_: any) => {};
+  onTouch = () => {};
+
   constructor() { }
+
+  writeValue(obj: CustomParam): void {
+    console.log('writeValue', obj);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState?(state: boolean): void {
+    this.isDisabled = state;
+  }
 
   ngOnInit(): void {
     const body = document.body as HTMLElement;
@@ -55,9 +85,11 @@ export class RangeComponent implements OnInit, OnDestroy {
           return valueX;
         })
       ).subscribe(mousePosition => {
-          const value = this.max * ((mousePosition / 2) / 100);
-          this.filterValue = value >= this.max ? this.max : value;
+          const value = this.maxPrice * ((mousePosition / 2) / 100);
+          this.filterValue = value >= this.maxPrice ? this.maxPrice : value;
           this.setPositionPoint(mousePosition);
+          this.onTouch();
+          this.onChange({left: this.leftBulletPosition, right: this.rightBulletPosition});
     });
 
     this.rangeSubscriptions.push(sub);
