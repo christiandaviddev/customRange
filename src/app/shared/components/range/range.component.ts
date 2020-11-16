@@ -16,7 +16,14 @@ import { CustomParam } from 'src/app/services/filter-products/interfaces/custom-
   ]
 })
 export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
+  /*
+    TODO:
+      - divide range-line length into the same sections as the number of elements in the array,
+        according to position, return price of the array.
+      - If there is not any ngModule input provided, a rangeChange output has to emit range values.
+      - limit position between bullets
+      - dragg bullet
+  */
   @Input('min') minPrice: number = 0;
   @Input('max') maxPrice = 0;
   @Input() values: number[] = [];
@@ -114,7 +121,7 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
   }
 
   mouseDownEvent(evnt: MouseEvent) {
-    // TODO:
+    // TODO: dragg bullet
     // this.isMouseDownEvent = true;
     // const body = document.body as HTMLElement;
     // const range = document.getElementById('range') as HTMLDivElement;
@@ -130,6 +137,8 @@ export class RangeComponent implements OnInit, OnDestroy, ControlValueAccessor {
   }
 
   // mouseUpEvent(evnt: any, id: string) {
+    // TODO: dragg bullet
+
   //   this.isMouseDownEvent = false;
   // }
 

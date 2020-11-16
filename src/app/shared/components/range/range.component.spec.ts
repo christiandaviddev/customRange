@@ -78,7 +78,6 @@ describe('RangeComponent', () => {
     it('set value to leftBulletPosition' , () => {
       const postion: number = 99;
       const maxPrice: number = 100;
-      // tslint:disable: no-string-literal
       component.leftBulletPosition = 0;
       component.rightBulletPosition = 200;
       component['leftPrice'] = 0;
@@ -95,7 +94,6 @@ describe('RangeComponent', () => {
       const maxPrice: number = 100;
       component.leftBulletPosition = 0;
       component.rightBulletPosition = 200;
-      // tslint:disable: no-string-literal
       component['leftPrice'] = 0;
       component['rightPrice'] = 0;
 
