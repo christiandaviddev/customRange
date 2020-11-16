@@ -22,7 +22,7 @@ export class FixedValuesRangeComponent implements OnInit {
     this.getPriceValues();
   }
 
-  getPriceValues(): void {
+  private getPriceValues(): void {
     this.filterProductsService.getPricesValues().pipe(
         tap(prices => this.values = prices?.values ?? []),
         catchError((err) => of(err))

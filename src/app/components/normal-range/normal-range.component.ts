@@ -24,7 +24,7 @@ export class NormalRangeComponent implements OnInit {
     this.getPriceValues();
   }
 
-  getPriceValues(): void {
+  private getPriceValues(): void {
     this.filterProductsService.getPricesMinMax().pipe(
         tap(prices => {
             this.minPrice = prices?.min ?? 0;
